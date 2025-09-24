@@ -176,7 +176,6 @@ export function createMapAndLayers(mapContainer, featureGeojsonData, registryFie
     }).addTo(map);
     for (const [key, value] of Object.entries(mapLayerGroups).sort((a, b) => a[0].localeCompare(b[0]))) {
             const displayKey = key !== undefined && key !== null && key !== "null" ? key : "Unknown";
-            console.log("Adding layer to control: " + displayKey);
            layerControl.addOverlay(value, `<span style="color:${spectralColorMap.get(key) || "#000000"};">&#9632;</span> ${displayKey}`);
     }
 

@@ -1,3 +1,5 @@
+import { version } from "react";
+
 export function randomCssColor(seed) {
     // get numeric hash from the seed
     const hash = seed.split("").reduce((acc, char) => {
@@ -67,12 +69,27 @@ export function addBaseBgLayersToMap(layerControl, map) {
     const cartoLayer = L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png", {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
-    const sommarioniBoardLayerGray = L.tileLayer.wms("https://geo-timemachine.epfl.ch/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=TimeMachine:venice-1729-lughi",{
+    const lughiBoardLayerGray = L.tileLayer.wms("https://geo-timemachine.epfl.ch/geoserver/wms?service=WMS",{
+            // attribution: '&copy; <a href="https://timeatlas.eu/">Time Atlas@EPFL</a>',
+            className: "grayscale-map",
+            layers: 'TimeMachine:venice-1729-lughi',
+            request: 'GetMap',
+            version: '1.1.0'
+    });
+
+    const lughiBoardLayerColor = L.tileLayer.wms("https://geo-timemachine.epfl.ch/geoserver/wms?service=WMS",{
+            // attribution: '&copy; <a href="https://timeatlas.eu/">Time Atlas@EPFL</a>',
+            layers: 'TimeMachine:venice-1729-lughi',
+            request: 'GetMap',
+            version: '1.1.0'
+    });
+
+    const sommarioniBoardLayerGray = L.tileLayer("https://geo-timemachine.epfl.ch/geoserver/www/tilesets/venice/sommarioni/{z}/{x}/{y}.png",{
             attribution: '&copy; <a href="https://timeatlas.eu/">Time Atlas@EPFL</a>',
             className: "grayscale-map"
     });
 
-    const sommarioniBoardLayerColor = L.tileLayer.wms("https://geo-timemachine.epfl.ch/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=TimeMachine:venice-1729-lughi",{
+    const sommarioniBoardLayerColor = L.tileLayer("https://geo-timemachine.epfl.ch/geoserver/www/tilesets/venice/sommarioni/{z}/{x}/{y}.png",{
             attribution: '&copy; <a href="https://timeatlas.eu/">Time Atlas@EPFL</a>'
     });
 
@@ -80,8 +97,10 @@ export function addBaseBgLayersToMap(layerControl, map) {
         "No background": noLayer,
         "OpenStreetMap": osmLayer,
         "Carto": cartoLayer,
-        "1729 Board (BW)": sommarioniBoardLayerGray,
-        "1729 Board": sommarioniBoardLayerColor
+        "1808 Sommarioni (BW)": sommarioniBoardLayerGray,
+        "1808 Sommarioni (Color)": sommarioniBoardLayerColor,
+        "1729 Lughi (BW)": lughiBoardLayerGray,
+        "1729 Lughi (Color)": lughiBoardLayerColor
     };
 
     for( let [key, value] of Object.entries(bgLayerList)){
