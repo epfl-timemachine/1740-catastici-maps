@@ -41,16 +41,29 @@ export function createMapAndLayers(mapContainer, featureGeojsonData, registryFie
 
     // Add all default layers to the map.
     addBaseBgLayersToMap(layerControl, map);
-    
-    let feats = geojsonData.features;
-    if (behavior === 'equals') {
-        feats = geojsonData.features.filter(feature => feature.properties[registryField] == valueToFilter);
-    } else if (behavior === 'contains') {
-        feats = geojsonData.features.filter(feature => feature.properties[registryField] && feature.properties[registryField].toString().toLowerCase().includes(valueToFilter.toLowerCase()));
-    } else {
-        console.error("Behavior not recognized: " + behavior);
+    if (registryField instanceof Array === false) {
+        registryField = [registryField];
+        console.log("registryField was not an array, converted to array with one element: " + registryField);
     }
-    geojsonData.features = feats;
+    let filtering_routine = (feature) => {
+        let boolVal = false;
+        for (let i = 0; i < registryField.length; i++) {
+            let field = registryField[i];
+            if (behavior === 'equals') {
+                boolVal = boolVal || (feature.properties[field] == valueToFilter);
+            }else if (behavior === 'contains') {
+                boolVal = boolVal || (feature.properties[field] && feature.properties[field].toString().toLowerCase().includes(valueToFilter.toLowerCase()));
+            }else {
+                console.error("Behavior not recognized: " + behavior);
+            }
+        }
+        return boolVal;
+    };
+
+    // } else if (behavior === 'contains') {
+    //     feats = geojsonData.features.filter(feature => feature.properties[registryField] && feature.properties[registryField].toString().toLowerCase().includes(valueToFilter.toLowerCase()));
+    // } 
+    geojsonData.features = geojsonData.features.filter(filtering_routine);
 
     console.log("Number of features after filtering: " + geojsonData.features.length);
 
