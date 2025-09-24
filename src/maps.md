@@ -1,5 +1,5 @@
 ---
-title: Napoleonic Cadaster - property type
+title: 1740-Catatastici - Standard Types maps
 toc: false
 style: components/custom-style.css
 ---
@@ -25,7 +25,7 @@ const geojson = FileAttachment("./data/1740_Catastici_2025-09-05_crs84.geojson")
 
 # Owners' functions and standardised classes
 
-## Owners are religious entities
+## Map 1. Religious Entities
 
 cat.loc[cat['PP_OwnerCode_SIMPL'] == 'Religious entity']
 <div id="map-container-ownership-type-religious-ent" class="map-component"></div>
@@ -35,7 +35,7 @@ const ownRelEntComponents = createMapAndLayers("map-container-ownership-type-rel
 ```
 
 
-## Owners are members of religious entities
+## Map 2. Members of Religious Entities.
 cat.loc[cat['owner_code'] == 'ent_REL_TTL']
 <div id="map-container-ownership-type-per" class="map-component"></div>
 
@@ -44,7 +44,7 @@ const ownRelPerComponents = createMapAndLayers("map-container-ownership-type-per
 ```
 
 
-## Owners are social institutions
+## Map 3. *Case gratis*.
 cat.loc[cat.PP_Function_PROPERTY.str.contains('CARITA', na=False)]
 <div id="map-container-ownership-type-soc" class="map-component"></div>
 
@@ -52,7 +52,7 @@ cat.loc[cat.PP_Function_PROPERTY.str.contains('CARITA', na=False)]
 const ownMapSocComponents = createMapAndLayers("map-container-ownership-type-soc", geojson, "PP_Function_PROPERTY", "CARITA", "contains");
 ```
 
-## Owners are social institutions.
+## Map 4. Social institutions.
 cat.loc[cat.PP_OwnerCode_SIMPL=='Social institution']
 <div id="map-container-ownership-type-social-institution" class="map-component"></div>
 
@@ -61,7 +61,7 @@ const ownMapSocInstComponents = createMapAndLayers("map-container-ownership-type
 ```
 
 
-## Owners are part of professional or artistic guilds.
+## Map 5. *Mestiere/Arti*.
 cat.loc[cat.PP_OwnerCode_SIMPL=='Guild']
 <div id="map-container-ownership-type-guild" class="map-component"></div>
 
@@ -70,7 +70,7 @@ const ownMapGuildComponents = createMapAndLayers("map-container-ownership-type-g
 ```
 
 
-## Owners are schools.
+## Map 6. *Scuole*.
 cat.loc[cat.PP_OwnerCode_SIMPL=='Scuola']
 <div id="map-container-ownership-type-scuola" class="map-component"></div>
 
@@ -79,7 +79,7 @@ const ownMapSchoolsComponents = createMapAndLayers("map-container-ownership-type
 ```
 
 
-## Owners are Procuratore?
+## Map 7. *Procuratore*.
 
 cat.loc[cat.PP_Owner_Title.str.contains('PROCU', na=False)] OR cat.loc[cat.PP_Owner_Entity.str.contains('PROCU', na=False)]
 <div id="map-container-ownership-type-proc" class="map-component"></div>
@@ -90,7 +90,7 @@ const ownMapProcComponents = createMapAndLayers("map-container-ownership-type-pr
 
 
 
-## Owners are the Republic of Venice.
+## Map 8. *Repubblica di Venezia*
 cat.loc[cat.PP_OwnerCode_SIMPL=='Repubblica di Venezia']
 <div id="map-container-ownership-type-venezia" class="map-component"></div>
 
