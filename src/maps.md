@@ -27,11 +27,11 @@ const geojson = FileAttachment("./data/1740_Catastici_2026-05-12_crs84.geojson")
 
 ## Map 1. Religious Entities
 
-cat.loc[cat['PP_OwnerCode_SIMPL'] == 'Religious entity']
+cat.loc[cat['PP_OwnerCode'].isin(['Religious (Entity)', 'Religious (Person)'])]
 <div id="map-container-ownership-type-religious-ent" class="map-component"></div>
 
 ```js
-const ownRelEntComponents = createMapAndLayers("map-container-ownership-type-religious-ent", geojson, "PP_OwnerCode_SIMPL", "Religious entity", "equals");
+const ownRelEntComponents = createMapAndLayers("map-container-ownership-type-religious-ent", geojson, "PP_OwnerCode", ["Religious (Entity)", "Religious (Person)"], "equals");
 ```
 
 
@@ -53,29 +53,29 @@ const ownMapSocComponents = createMapAndLayers("map-container-ownership-type-car
 ```
 
 ## Map 4. Social institutions.
-cat.loc[cat.PP_OwnerCode_SIMPL=='Social institution']
+cat.loc[cat.PP_OwnerCode=='Social institution']
 <div id="map-container-ownership-type-social-institution" class="map-component"></div>
 
 ```js
-const ownMapSocInstComponents = createMapAndLayers("map-container-ownership-type-social-institution", geojson, "PP_OwnerCode_SIMPL", "Social institution", "equals");
+const ownMapSocInstComponents = createMapAndLayers("map-container-ownership-type-social-institution", geojson, "PP_OwnerCode", "Social institution", "equals");
 ```
 
 
 ## Map 5. *Mestiere/Arti*.
-cat.loc[cat.PP_OwnerCode_SIMPL=='Guild']
+cat.loc[cat.owner_code.str.contains('GLD|SCL_MST', na=False)]
 <div id="map-container-ownership-type-guild" class="map-component"></div>
 
 ```js
-const ownMapGuildComponents = createMapAndLayers("map-container-ownership-type-guild", geojson, "PP_OwnerCode_SIMPL", "Guild", "equals");
+const ownMapGuildComponents = createMapAndLayers("map-container-ownership-type-guild", geojson, "owner_code", ["GLD", "SCL_MST"], "contains");
 ```
 
 
 ## Map 6. *Scuole*.
-cat.loc[cat.PP_OwnerCode_SIMPL=='Scuola']
+cat.loc[cat.owner_code.str.contains('SCL_GRD|SCL_UNL', na=False)]
 <div id="map-container-ownership-type-scuola" class="map-component"></div>
 
 ```js
-const ownMapSchoolsComponents = createMapAndLayers("map-container-ownership-type-scuola", geojson, "PP_OwnerCode_SIMPL", "Scuola", "equals");
+const ownMapSchoolsComponents = createMapAndLayers("map-container-ownership-type-scuola", geojson, "owner_code", ["SCL_GRD", "SCL_UNL"], "contains");
 ```
 
 
@@ -91,9 +91,9 @@ const ownMapProcComponents = createMapAndLayers("map-container-ownership-type-pr
 
 
 ## Map 8. *Repubblica di Venezia*
-cat.loc[cat.PP_OwnerCode_SIMPL=='Repubblica di Venezia']
+cat.loc[cat.PP_OwnerCode=='Repubblica di Venezia']
 <div id="map-container-ownership-type-venezia" class="map-component"></div>
 
 ```js
-const ownMapVeneziaComponents = createMapAndLayers("map-container-ownership-type-venezia", geojson, "PP_OwnerCode_SIMPL", "Repubblica di Venezia", "equals");
+const ownMapVeneziaComponents = createMapAndLayers("map-container-ownership-type-venezia", geojson, "PP_OwnerCode", "Repubblica di Venezia", "equals");
 ```

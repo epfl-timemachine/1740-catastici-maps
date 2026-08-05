@@ -45,16 +45,19 @@ export function createMapAndLayers(mapContainer, featureGeojsonData, registryFie
         registryField = [registryField];
         console.log("registryField was not an array, converted to array with one element: " + registryField);
     }
+    const valuesToFilter = Array.isArray(valueToFilter) ? valueToFilter : [valueToFilter];
     let filtering_routine = (feature) => {
         let boolVal = false;
         for (let i = 0; i < registryField.length; i++) {
             let field = registryField[i];
-            if (behavior === 'equals') {
-                boolVal = boolVal || (feature.properties[field] == valueToFilter);
-            }else if (behavior === 'contains') {
-                boolVal = boolVal || (feature.properties[field] && feature.properties[field].toString().toLowerCase().includes(valueToFilter.toLowerCase()));
-            }else {
-                console.error("Behavior not recognized: " + behavior);
+            for (const filterValue of valuesToFilter) {
+                if (behavior === 'equals') {
+                    boolVal = boolVal || (feature.properties[field] == filterValue);
+                }else if (behavior === 'contains') {
+                    boolVal = boolVal || (feature.properties[field] && feature.properties[field].toString().toLowerCase().includes(filterValue.toLowerCase()));
+                }else {
+                    console.error("Behavior not recognized: " + behavior);
+                }
             }
         }
         return boolVal;
