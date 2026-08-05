@@ -19,7 +19,7 @@ import "./plugins/leaflet-heat.js";
 import {createMapAndLayers} from "./components/map-standard-types.js";
 
 // const geojson = FileAttachment("./data/1740_Catastici_2025-09-10_crs84.geojson").json();
-const geojson = FileAttachment("./data/1740_Catastici_2025-09-05_crs84.geojson").json();
+const geojson = FileAttachment("./data/1740_Catastici_2026-05-12_crs84.geojson").json();
 ```
 
 
@@ -46,10 +46,10 @@ const ownRelPerComponents = createMapAndLayers("map-container-ownership-type-per
 
 ## Map 3. *Case gratis*.
 cat.loc[cat.PP_Function_PROPERTY.str.contains('CARITA', na=False)]
-<div id="map-container-ownership-type-soc" class="map-component"></div>
+<div id="map-container-ownership-type-carita" class="map-component"></div>
 
 ```js
-const ownMapSocComponents = createMapAndLayers("map-container-ownership-type-soc", geojson, "PP_Function_PROPERTY", "CARITA", "contains");
+const ownMapSocComponents = createMapAndLayers("map-container-ownership-type-carita", geojson, "PP_Function_PROPERTY", "CARITA", "contains");
 ```
 
 ## Map 4. Social institutions.
