@@ -16,10 +16,26 @@ if (L === undefined) console.error("L is undefined");
 
 // Leaflet.heat: https://github.com/Leaflet/Leaflet.heat/
 import "./plugins/leaflet-heat.js";
-import {createMapAndLayers} from "./components/map-standard-types.js";
+import {createMapAndLayers, createRangeFacetMap} from "./components/map-standard-types.js";
 
 // const geojson = FileAttachment("./data/1740_Catastici_2025-09-10_crs84.geojson").json();
 const geojson = FileAttachment("./data/1740_Catastici_2026-05-12_crs84.geojson").json();
+```
+
+## Map 0. Income by quantity
+Use the slider range and owner class facet to show points for the selected `quantity_income` interval and `owner_code` category.
+
+<div id="income-filter-controls" class="map-component"></div>
+<div id="map-container-income-range" class="map-component"></div>
+
+```js
+const incomeFacetMap = createRangeFacetMap(
+  "map-container-income-range",
+  "income-filter-controls",
+  geojson,
+  "quantity_income",
+  "owner_code"
+);
 ```
 
 
