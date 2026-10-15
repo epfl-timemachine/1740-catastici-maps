@@ -66,9 +66,6 @@ export function addBaseBgLayersToMap(layerControl, map) {
     const osmLayer = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
-    const cartoLayer = L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
     const lughiBoardLayerGray = L.tileLayer.wms("https://geo-timemachine.epfl.ch/geoserver/wms?service=WMS",{
             // attribution: '&copy; <a href="https://timeatlas.eu/">Time Atlas@EPFL</a>',
             className: "grayscale-map",
@@ -96,7 +93,6 @@ export function addBaseBgLayersToMap(layerControl, map) {
     const bgLayerList = {
         "No background": noLayer,
         "OpenStreetMap": osmLayer,
-        "Carto": cartoLayer,
         "1808 Sommarioni (BW)": sommarioniBoardLayerGray,
         "1808 Sommarioni (Color)": sommarioniBoardLayerColor,
         "1729 Lughi (BW)": lughiBoardLayerGray,
@@ -106,7 +102,7 @@ export function addBaseBgLayersToMap(layerControl, map) {
     for( let [key, value] of Object.entries(bgLayerList)){
         layerControl.addBaseLayer(value, key);
     } 
-    bgLayerList["Carto"].addTo(map);
+    bgLayerList["OpenStreetMap"].addTo(map);
 }
 
 export function formatRegistryEntryToHTML(entry, excludeCols) {
